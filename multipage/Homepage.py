@@ -31,20 +31,20 @@ else:
     grade = st.selectbox("Select Grade", ["10th", "11th", "12th"],index=0)
 
 if(st.button("Create Database")):
-    folder_path = f"D:\\ML\\superkalam\\database\\{subject}\\{grade}"
+    folder_path = f"D:\\ML\\superkalam\\RAG-with-citations\\database\\{subject}\\{grade}"
     if os.path.exists(folder_path):
         st.success(f"The database folder for {subject} {grade} grade already exists.")
     else:
         with st.spinner("Creating database folder..."):
             # time.sleep(3)  
-            loader=DirectoryLoader(f"D:\\ML\\superkalam\\docs\\{subject}\\{grade}",loader_cls=PyPDFLoader)
+            loader=DirectoryLoader(f"D:\\ML\\superkalam\\RAG-with-citations\\docs\\{subject}\\{grade}",loader_cls=PyPDFLoader)
             documents = loader.load()
             text_splitter = CharacterTextSplitter(chunk_size=1024, chunk_overlap=128)
             docs = text_splitter.split_documents(documents)
             embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
             # FAISS
             db = FAISS.from_documents(docs, embedding_function)
-            db.save_local(f"D:\\ML\\superkalam\\database\\{subject}\\{grade}")
+            db.save_local(f"D:\\ML\\superkalam\\RAG-with-citations\\database\\{subject}\\{grade}")
             # Chroma
             # db = Chroma.from_documents(docs, embedding_function,persist_directory='db')
             # db = Chroma(persist_directory=f"D:\\ML\\superkalam\\database_chroma\\{st.session_state['subject']}\\{st.session_state['grade']}", embedding_function=embedding_function)

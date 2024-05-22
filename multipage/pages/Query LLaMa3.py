@@ -33,7 +33,7 @@ else:
         with st.spinner('Generating answer...'):
             embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
            #FAISS
-            db=FAISS.load_local(f"D:\\ML\\superkalam\\database\\{st.session_state['subject']}\\{st.session_state['grade']}", embedding_function,allow_dangerous_deserialization=True)
+            db=FAISS.load_local(f"D:\\ML\\superkalam\\RAG-with-citations\\database\\{st.session_state['subject']}\\{st.session_state['grade']}", embedding_function,allow_dangerous_deserialization=True)
             #Chroma
             # db = Chroma(persist_directory=f"D:\\ML\\superkalam\\database_chroma\\{st.session_state['subject']}\\{st.session_state['grade']}", embedding_function=embedding_function)
             
